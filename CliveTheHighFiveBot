@@ -1,0 +1,78 @@
+
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+@TeleOp(name="CliveTheHighFiveBot", group="Iterative Opmode")
+
+public class CliveTheHighFiveBot extends OpMode
+{
+    private ElapsedTime runtime = new ElapsedTime();
+
+    private DcMotor FLefty = null;
+    private DcMotor FRighty = null;
+    private DcMotor BLefty = null;
+    private DcMotor BRighty = null;
+    private Servo Slappy = null;
+    TouchSensor Pokey;
+
+    @Override
+    public void init() {
+
+        telemetry.addData("Status", "Initialized");
+
+        FLefty  = hardwareMap.dcMotor.get("left_front");
+
+        FRighty = hardwareMap.dcMotor.get("right_front");
+        BLefty = hardwareMap.dcMotor.get("left_back");
+        BRighty = hardwareMap.dcMotor.get("right_back");
+        Slappy = hardwareMap.servo.get("slappy");
+        Pokey = hardwareMap.touchSensor.get("pokey");
+
+        FLefty.setDirection(DcMotor.Direction.FORWARD);
+        FRighty.setDirection(DcMotor.Direction.REVERSE);
+        BLefty.setDirection(DcMotor.Direction.FORWARD);
+        BRighty.setDirection(DcMotor.Direction.REVERSE);
+
+        telemetry.addData("Status", "Initialized");
+    }
+
+    @Override
+    public void init_loop() {
+    }
+
+    @Override
+    public void start() {
+        runtime.reset();
+    }
+
+    @Override
+    public void loop() {
+        telemetry.addData("Status", "Running: " + runtime.toString());
+
+        FLefty.setPower(-gamepad1.left_stick_y);
+        FRighty.setPower(-gamepad1.right_stick_y);
+        BLefty.setPower(-gamepad1.left_stick_y);
+        BRighty.setPower(-gamepad1.right_stick_y);
+        if(Pokey.isPressed())
+        {
+            runtime.reset();
+            if(runtime.time() > 1000) {
+                Slappy.setPosition(.5);
+            }
+        }
+        else
+        {
+            Slappy.setPosition(0);
+        }
+    }
+    @Override
+    public void stop() {
+    }
+}
+
