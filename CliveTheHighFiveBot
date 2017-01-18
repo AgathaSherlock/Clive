@@ -55,10 +55,10 @@ public class CliveTheHighFiveBot extends OpMode
     public void loop() {
         telemetry.addData("Status", "Running: " + runtime.toString());
 
-        FLefty.setPower(gamepad1.left_stick_y);
-        FRighty.setPower(gamepad1.right_stick_y);
-        BLefty.setPower(gamepad1.left_stick_y);
-        BRighty.setPower(gamepad1.right_stick_y);
+        FLefty.setPower(gamepad1.left_stick_y /2);
+        FRighty.setPower(gamepad1.right_stick_y/2);
+        BLefty.setPower(gamepad1.left_stick_y /2);
+        BRighty.setPower(gamepad1.right_stick_y /2);
         if(Pokey.isPressed() || gamepad1.b )
         {
                 Slappy.setPosition(.5);
